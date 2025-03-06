@@ -60,7 +60,7 @@ class LCWTest(unittest.TestCase):
         driver.get("https://www.lcwaikiki.com/")
         self.wait.until(lambda driver: page_has_loaded(driver))
         time.sleep(1)
-
+    #happy path testi değile monkey testi deniliyor olması lazım buna kesin sorarsın neden random diye buddym
     def selectRandomProduct(self, driver):
         prodGrid = driver.find_element(*self.CAT_PRODUCT_GRID)
         prodElements = prodGrid.find_elements(*self.CAT_PRODUCT_GRID_ITEM)
