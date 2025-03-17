@@ -42,6 +42,7 @@ class LCWTest(unittest.TestCase):
         while maxAttempts > 1:
             try:
                 self.navigateToHomepage(driver)
+                self.assertEqual("https://www.lcw.com/", driver.current_url)
                 self.goToProductPage(driver, byPassCookies=maxAttempts < 3)
                 self.selectRandomProduct(driver)
                 self.addProductToCart(driver)
@@ -55,11 +56,18 @@ class LCWTest(unittest.TestCase):
                 time.sleep(1)
 
         self.verifyCart(driver)
+        self.assertTrue(self.driver.current_url.__contains__("sepetim"))
+        self.navigateToHomepage(driver)
+        self.assertIn("lcw.com", driver.current_url)
+
+        
+
 
     def navigateToHomepage(self, driver):
         driver.get("https://www.lcwaikiki.com/")
         self.wait.until(lambda driver: page_has_loaded(driver))
         time.sleep(1)
+
     #happy path testi değile monkey testi deniliyor olması lazım buna kesin sorarsın neden random diye buddym
     def selectRandomProduct(self, driver):
         prodGrid = driver.find_element(*self.CAT_PRODUCT_GRID)
@@ -82,10 +90,7 @@ class LCWTest(unittest.TestCase):
         driver.get("https://www.lcw.com/sepetim")
         self.wait.until(lambda driver: page_has_loaded(driver))
         time.sleep(2)
-        driver.get("https://www.lcw.com")
-        self.wait.until(lambda driver: page_has_loaded(driver))
-        time.sleep(2)
-
+        
     def goToProductPage(self, driver, byPassCookies=False):
         self.wait.until(lambda driver: page_has_loaded(driver))
         time.sleep(1)
